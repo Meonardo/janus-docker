@@ -36,7 +36,7 @@ RUN apt-get update && \
 # nginx-rtmp with openresty
 RUN ZLIB="zlib-1.2.11" && vNGRTMP="v1.1.11" && PCRE="8.41" && nginx_build=/root/nginx && mkdir $nginx_build && \
     cd $nginx_build && \
-    wget https://github.com/Meonardo/janus-webrtc-gateway-docker/raw/master/resources/pcre-8.41.tar.gz && \
+    wget https://github.com/Meonardo/janus-docker/blob/main/resources/pcre-8.41.tar.gz && \
     tar -zxf pcre-$PCRE.tar.gz && \
     cd pcre-$PCRE && \
     ./configure && make && make install && \
