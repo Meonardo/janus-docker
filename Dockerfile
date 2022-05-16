@@ -141,13 +141,6 @@ RUN apt-get remove -y libnice-dev libnice10 && \
     make install
 
 
-RUN COTURN="4.5.0.8" && wget https://github.com/coturn/coturn/archive/$COTURN.tar.gz && \
-    tar xzvf $COTURN.tar.gz && \
-    cd coturn-$COTURN && \
-    ./configure && \
-    make && make install
-
-
 # datachannel build
 RUN cd / && git clone https://github.com/sctplab/usrsctp.git && cd /usrsctp && \
     git checkout origin/master && git reset --hard 1c9c82fbe3582ed7c474ba4326e5929d12584005 && \
@@ -167,7 +160,7 @@ RUN make && make install
 RUN rm -fr /opt/janus
 
 RUN cd / && git clone https://github.com/meetecho/janus-gateway.git && cd /janus-gateway && \
-    git checkout refs/tags/v0.11.5 && \
+    git checkout refs/tags/v0.12.1 && \
     sh autogen.sh && ./configure --prefix=/opt/janus \
     # --enable-post-processing \
     --enable-boringssl \
@@ -199,24 +192,24 @@ RUN sudo openssl req -x509 -nodes -days 730 -newkey rsa:2048 \
 RUN echo "Copy nginx config file..."
 COPY ./configs/nginx.conf /usr/local/nginx/nginx.conf
 
-ENV NVM_VERSION v0.35.3
-ENV NODE_VERSION v12.18.3
-ENV NVM_DIR /usr/local/nvm
-RUN mkdir $NVM_DIR
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/$NVM_VERSION/install.sh | bash
+# ENV NVM_VERSION v0.35.3
+# ENV NODE_VERSION v12.18.3
+# ENV NVM_DIR /usr/local/nvm
+# RUN mkdir $NVM_DIR
+# RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/$NVM_VERSION/install.sh | bash
 
-ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+# ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+# ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
-RUN echo "source $NVM_DIR/nvm.sh && \
-    nvm install $NODE_VERSION && \
-    nvm alias default $NODE_VERSION && \
-    nvm use default" | bash
+# RUN echo "source $NVM_DIR/nvm.sh && \
+#     nvm install $NODE_VERSION && \
+#     nvm alias default $NODE_VERSION && \
+#     nvm use default" | bash
 
 
-SHELL ["/bin/bash", "-l", "-euxo", "pipefail", "-c"]
-RUN node -v
-RUN npm -v
+# SHELL ["/bin/bash", "-l", "-euxo", "pipefail", "-c"]
+# RUN node -v
+# RUN npm -v
 
 RUN echo chmod -R 777 /opt/janus/
 
@@ -224,5 +217,6 @@ RUN echo "Copy configure files..."
 # COPY janus.jcfg /opt/janus/etc/janus
 COPY ./configs/janus.plugin.videoroom.jcfg /opt/janus/etc/janus
 COPY ./configs/janus.transport.http.jcfg /opt/janus/etc/janus
+COPY ./configs/janus.transport.websockets.jcfg /opt/janus/etc/janus
 
 CMD nginx && /opt/janus/bin/janus
