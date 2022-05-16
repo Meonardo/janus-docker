@@ -34,7 +34,8 @@ RUN apt-get update && \
 
 
 # nginx-rtmp with openresty
-RUN ZLIB="zlib-1.2.11" && vNGRTMP="v1.1.11" && PCRE="8.41" && nginx_build=/root/nginx && mkdir $nginx_build && \
+# https://zlib.net/zlib-1.2.12.tar.gz
+RUN ZLIB="zlib-1.2.12" && vNGRTMP="v1.1.11" && PCRE="8.41" && nginx_build=/root/nginx && mkdir $nginx_build && \
     cd $nginx_build && \
     wget https://github.com/Meonardo/janus-docker/raw/main/resources/pcre-8.41.tar.gz && \
     tar -zxf pcre-$PCRE.tar.gz && \
@@ -50,7 +51,7 @@ RUN ZLIB="zlib-1.2.11" && vNGRTMP="v1.1.11" && PCRE="8.41" && nginx_build=/root/
     tar zxf $vNGRTMP.tar.gz && mv nginx-rtmp-module-* nginx-rtmp-module
 
 
-RUN OPENRESTY="1.13.6.2" && ZLIB="zlib-1.2.11" && PCRE="pcre-8.41" &&  openresty_build=/root/openresty && mkdir $openresty_build && \
+RUN OPENRESTY="1.13.6.2" && ZLIB="zlib-1.2.12" && PCRE="pcre-8.41" &&  openresty_build=/root/openresty && mkdir $openresty_build && \
     wget https://openresty.org/download/openresty-$OPENRESTY.tar.gz && \
     tar zxf openresty-$OPENRESTY.tar.gz && \
     cd openresty-$OPENRESTY && \
