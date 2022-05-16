@@ -10,7 +10,7 @@ Originally forked from https://github.com/atyenoria/janus-webrtc-gateway-docker
 3. Change janus default install path to `/opt/janus`;
 4. Replace `janus.plugin.videoroom.jcfg` & `janus.transport.http.jcfg` janus config files to docker image;
 5. Update `libsrtp` to version `2.4.2`;
-6. Update `janus-gateway` to version `0.11.5`;
+6. Update `janus-gateway` to version `0.12.1`;
 7. Support HTTPS(**Self signed certs**).
 
 # How to use
