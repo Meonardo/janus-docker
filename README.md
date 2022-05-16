@@ -18,7 +18,7 @@ Originally forked from https://github.com/atyenoria/janus-webrtc-gateway-docker
 ```
 1. git clone https://github.com/Meonardo/janus-docker.git && cd janus-docker
 2. make build
-3. make run-mac
+3. make run
 ```
 
 # Change config file
