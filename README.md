@@ -23,12 +23,12 @@ Originally forked from https://github.com/atyenoria/janus-webrtc-gateway-docker
 ```
 
 ## Notice
-The `make build` step will take a lot of time, once the image is create successfully, you can export the image to a zip file
+The `make build` step will take time, once the image is created successfully, you can export the image to a zip file
 ```
-// for export
+// for exporting
 docker save ‘image:container’ > ‘path/to/save/saved.tar’ 
-// for import
-docker load < ‘docker_image_file.tar’;
+// for importing
+docker load < ‘saved.tar’;
 ```
 
 ## Change config file
